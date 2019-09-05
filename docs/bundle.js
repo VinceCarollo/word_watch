@@ -83,7 +83,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(() => {
   var loadTopWord = () => {
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.get('http://localhost:3000/api/v1/top_word', (data) => {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.get('https://wordwatch-api.herokuapp.com/api/v1/top_word', (data) => {
       showTopWord(data.word);
     })
   }
@@ -102,15 +102,20 @@ __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(() => {
   var clearSuccessMessage = () => {
     setTimeout(() => {
       __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#success-message').children().remove()
-    }, 3000)
+    }, 5000)
   }
 
   __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#word-submit').click(() => {
     let text = __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.trim(__WEBPACK_IMPORTED_MODULE_0_jquery___default()("#word-text").val());
     text.split(' ').forEach(word => {
-      __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.post('http://localhost:3000/api/v1/words', { word: { value: word } }, (data) => {
+      __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.post('https://wordwatch-api.herokuapp.com/api/v1/words', { word: { value: word } }, (data) => {
         __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#success-message').append(`
           <p>${data['message']}</p>
+          `)
+      })
+      .fail(() => {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#success-message').append(`
+          <p>'${word}' not added - make sure to only use letters</p>
           `)
       })
     })

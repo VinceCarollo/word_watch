@@ -2,7 +2,7 @@ import $ from 'jquery'
 
 $(document).ready(() => {
   var loadTopWord = () => {
-    $.get('http://localhost:3000/api/v1/top_word', (data) => {
+    $.get('https://wordwatch-api.herokuapp.com/api/v1/top_word', (data) => {
       showTopWord(data.word);
     })
   }
@@ -21,15 +21,20 @@ $(document).ready(() => {
   var clearSuccessMessage = () => {
     setTimeout(() => {
       $('#success-message').children().remove()
-    }, 3000)
+    }, 5000)
   }
 
   $('#word-submit').click(() => {
     let text = $.trim($("#word-text").val());
     text.split(' ').forEach(word => {
-      $.post('http://localhost:3000/api/v1/words', { word: { value: word } }, (data) => {
+      $.post('https://wordwatch-api.herokuapp.com/api/v1/words', { word: { value: word } }, (data) => {
         $('#success-message').append(`
           <p>${data['message']}</p>
+          `)
+      })
+      .fail(() => {
+        $('#success-message').append(`
+          <p>'${word}' not added - make sure to only use letters</p>
           `)
       })
     })
