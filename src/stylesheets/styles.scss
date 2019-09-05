@@ -75,13 +75,16 @@ main {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      text-align: center;
       border-bottom: 2px solid $indigo;
       height: 8vh;
       color: $salmon;
       padding: 10px;
     }
     .word-count {
-      display: flex;
+      display: inline;
+      text-align: center;
+      font-size: 60px;
       flex-wrap: wrap;
       align-items: baseline;
       padding: 5px;
